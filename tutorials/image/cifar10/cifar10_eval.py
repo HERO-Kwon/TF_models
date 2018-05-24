@@ -123,7 +123,8 @@ def evaluate():
     # Build a Graph that computes the logits predictions from the
     # inference model.
     logits = cifar10.inference(images)
-
+    loss = cifar10.loss(logits, labels)
+    tf.summary.scalar('total_loss', loss)
     # Calculate predictions.
     top_k_op = tf.nn.in_top_k(logits, labels, 1)
 
@@ -135,7 +136,6 @@ def evaluate():
 
     # Build the summary operation based on the TF collection of Summaries.
     summary_op = tf.summary.merge_all()
-
     summary_writer = tf.summary.FileWriter(FLAGS.eval_dir, g)
 
     while True:
