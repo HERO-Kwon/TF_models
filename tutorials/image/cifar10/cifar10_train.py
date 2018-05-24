@@ -49,11 +49,11 @@ FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('train_dir', '/tmp/cifar10_train',
                            """Directory where to write event logs """
                            """and checkpoint.""")
-tf.app.flags.DEFINE_integer('max_steps', 30,
+tf.app.flags.DEFINE_integer('max_steps', 1000,
                             """Number of batches to run.""")
 tf.app.flags.DEFINE_boolean('log_device_placement', False,
                             """Whether to log device placement.""")
-tf.app.flags.DEFINE_integer('log_frequency', 1,
+tf.app.flags.DEFINE_integer('log_frequency', 10,
                             """How often to log results to the console.""")
 
 
@@ -109,7 +109,7 @@ def train():
     with tf.train.MonitoredTrainingSession(
         checkpoint_dir=FLAGS.train_dir,
         save_summaries_steps = 10,
-        save_checkpoint_steps = 1,
+        save_checkpoint_secs = 1,
         hooks=[tf.train.StopAtStepHook(last_step=FLAGS.max_steps),
                tf.train.NanTensorHook(loss),
                _LoggerHook()],
