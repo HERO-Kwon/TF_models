@@ -124,7 +124,7 @@ def evaluate():
     # inference model.
     logits = cifar10.inference(images)
     loss = cifar10.loss(logits, labels)
-    tf.summary.scalar('total_loss', loss)
+    tf.summary.scalar('loss', loss)
     # Calculate predictions.
     top_k_op = tf.nn.in_top_k(logits, labels, 1)
 

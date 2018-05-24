@@ -74,7 +74,7 @@ def train():
 
     # Calculate loss.
     loss = cifar10.loss(logits, labels)
-
+    tf.summary.scalar('loss', loss)
     # Build a Graph that trains the model with one batch of examples and
     # updates the model parameters.
     train_op = cifar10.train(loss, global_step)
