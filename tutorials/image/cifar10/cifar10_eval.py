@@ -96,11 +96,11 @@ def eval_once(saver, summary_writer, top_k_op, loss,summary_op):
       while step < num_iter and not coord.should_stop():
         predictions = sess.run([top_k_op])
         true_count += np.sum(predictions)
-        total_loss = sess.run(loss)
         step += 1
 
       # Compute precision @ 1.
       precision = true_count / total_sample_count
+      total_loss = sess.run(loss)
       #print('%s: precision @ 1 = %.3f' % (datetime.now(), precision))
 
       summary = tf.Summary()
