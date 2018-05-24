@@ -248,7 +248,7 @@ def inputs(eval_data, data_dir, batch_size):
 
     # Set the shapes of tensors.
     #float_image.set_shape([height, width, 3])
-    resized_image.set_shape([height, width, 3])
+    #resized_image.set_shape([height, width, 3])
     read_input.label.set_shape([1])
 
     # Ensure that the random shuffling has good mixing properties.
