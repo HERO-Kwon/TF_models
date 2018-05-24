@@ -42,6 +42,7 @@ import time
 import tensorflow as tf
 
 import cifar10
+import cifar10_eval
 
 FLAGS = tf.app.flags.FLAGS
 

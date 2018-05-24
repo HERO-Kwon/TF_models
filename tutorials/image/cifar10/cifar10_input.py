@@ -27,7 +27,7 @@ import tensorflow as tf
 # Process images of this size. Note that this differs from the original CIFAR
 # image size of 32 x 32. If one alters this number, then the entire model
 # architecture will change and any model would need to be retrained.
-IMAGE_SIZE = 24
+IMAGE_SIZE = 32
 
 # Global constants describing the CIFAR-10 data set.
 NUM_CLASSES = 10
@@ -240,14 +240,15 @@ def inputs(eval_data, data_dir, batch_size):
 
     # Image processing for evaluation.
     # Crop the central [height, width] of the image.
-    resized_image = tf.image.resize_image_with_crop_or_pad(reshaped_image,
-                                                           height, width)
+    #resized_image = tf.image.resize_image_with_crop_or_pad(reshaped_image,
+    #                                                       height, width)
 
     # Subtract off the mean and divide by the variance of the pixels.
-    float_image = tf.image.per_image_standardization(resized_image)
+    #float_image = tf.image.per_image_standardization(resized_image)
 
     # Set the shapes of tensors.
-    float_image.set_shape([height, width, 3])
+    #float_image.set_shape([height, width, 3])
+    reshaped_image.set_shape([height, width, 3])
     read_input.label.set_shape([1])
 
     # Ensure that the random shuffling has good mixing properties.
@@ -258,4 +259,4 @@ def inputs(eval_data, data_dir, batch_size):
   # Generate a batch of images and labels by building up a queue of examples.
   return _generate_image_and_label_batch(float_image, read_input.label,
                                          min_queue_examples, batch_size,
-                                         shuffle=False)
+                                         shuffle=True)
