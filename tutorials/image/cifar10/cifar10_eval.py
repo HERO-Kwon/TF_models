@@ -100,13 +100,13 @@ def eval_once(saver, summary_writer, top_k_op, loss,summary_op):
 
       # Compute precision @ 1.
       precision = true_count / total_sample_count
-      total_loss = sess.run(loss)
-      #print('%s: precision @ 1 = %.3f' % (datetime.now(), precision))
+      #total_loss = sess.run(loss)
+      print('%s: precision @ 1 = %.3f' % (datetime.now(), precision))
 
       summary = tf.Summary()
       summary.ParseFromString(sess.run(summary_op))
       summary.value.add(tag='Precision @ 1', simple_value=precision)
-      summary.value.add(tag='loss @ 1',simple_value=total_loss)
+      #summary.value.add(tag='loss @ 1',simple_value=total_loss)
       summary_writer.add_summary(summary, global_step)
     except Exception as e:  # pylint: disable=broad-except
       coord.request_stop(e)
@@ -125,7 +125,7 @@ def evaluate():
     # Build a Graph that computes the logits predictions from the
     # inference model.
     logits = cifar10.inference(images)
-    loss = cifar10.loss(logits, labels)
+    #loss = cifar10.loss(logits, labels)
     #tf.summary.scalar('loss', loss)
     # Calculate predictions.
     top_k_op = tf.nn.in_top_k(logits, labels, 1)
@@ -141,7 +141,7 @@ def evaluate():
     summary_writer = tf.summary.FileWriter(FLAGS.eval_dir, g)
 
     while True:
-      eval_once(saver, summary_writer, top_k_op,loss, summary_op)
+      eval_once(saver, summary_writer, top_k_op, summary_op)
       if FLAGS.run_once:
         break
       time.sleep(FLAGS.eval_interval_secs)
