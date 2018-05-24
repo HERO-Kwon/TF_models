@@ -263,7 +263,7 @@ def inference(images):
     weights = _variable_with_weight_decay('weights', shape=[384, 192],
                                           stddev=0.04, wd=0.004)
     biases = _variable_on_cpu('biases', [192], tf.constant_initializer(0.1))
-    local5 = tf.nn.relu(tf.matmul(local3, weights) + biases, name=scope.name)
+    local5 = tf.nn.relu(tf.matmul(local4, weights) + biases, name=scope.name)
     _activation_summary(local5)
 
   # linear layer(WX + b),
