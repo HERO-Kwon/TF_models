@@ -95,8 +95,6 @@ def eval_once(saver, summary_writer, top_k_op, summary_op):
       step = 0
       while step < num_iter and not coord.should_stop():
         predictions = sess.run([top_k_op])
-        loss_test = sess.run(loss)
-        tf.summary.scalar(l.op.name + ' (raw)', l)
         true_count += np.sum(predictions)
         step += 1
 
@@ -104,10 +102,10 @@ def eval_once(saver, summary_writer, top_k_op, summary_op):
       precision = true_count / total_sample_count
       print('%s: precision @ 1 = %.3f' % (datetime.now(), precision))
 
-#      summary = tf.Summary()
-#      summary.ParseFromString(sess.run(summary_op))
-#      summary.value.add(tag='Precision @ 1', simple_value=precision)
-#      summary_writer.add_summary(summary, global_step)
+      summary = tf.Summary()
+      summary.ParseFromString(sess.run(summary_op))
+      summary.value.add(tag='Precision @ 1', simple_value=precision)
+      summary_writer.add_summary(summary, global_step)
     except Exception as e:  # pylint: disable=broad-except
       coord.request_stop(e)
 
@@ -136,9 +134,9 @@ def evaluate():
     saver = tf.train.Saver(variables_to_restore)
 
     # Build the summary operation based on the TF collection of Summaries.
-    #summary_op = tf.summary.merge_all()
+    summary_op = tf.summary.merge_all()
 
-    #summary_writer = tf.summary.FileWriter(FLAGS.eval_dir, g)
+    summary_writer = tf.summary.FileWriter(FLAGS.eval_dir, g)
 
     while True:
       eval_once(saver, summary_writer, top_k_op, summary_op)
