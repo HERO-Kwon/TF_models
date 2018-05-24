@@ -110,8 +110,7 @@ def train():
     with tf.train.MonitoredTrainingSession(
         checkpoint_dir=FLAGS.train_dir,
         save_summaries_steps = 10,
-        save_checkpoint_secs = None,
-        save_checkpoint_steps = 10,
+        save_checkpoint_secs = 1,
         hooks=[tf.train.StopAtStepHook(last_step=FLAGS.max_steps),
                tf.train.NanTensorHook(loss),
                _LoggerHook()],
