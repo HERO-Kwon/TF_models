@@ -210,7 +210,7 @@ def inference(images):
     pre_activation = tf.nn.bias_add(conv, biases)
     conv1 = tf.nn.relu(pre_activation, name=scope.name)
     _activation_summary(conv1)
-'''
+  '''
   # pool1
   pool1 = tf.nn.max_pool(conv1, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1],
                          padding='SAME', name='pool1')
@@ -246,7 +246,7 @@ def inference(images):
   # pool3
   pool3 = tf.nn.max_pool(conv3, ksize=[1, 3, 3, 1],
                          strides=[1, 2, 2, 1], padding='SAME', name='pool3')
-'''
+  '''
   # local4
   with tf.variable_scope('local4') as scope:
     # Move everything into depth so we can perform a single matrix multiply.
